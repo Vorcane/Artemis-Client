@@ -1,6 +1,9 @@
 /*global $, console, chrome, URL */
 var domain = null,
-    grade = null;
+    grade = null,
+    qualystart = "<a href='https://www.ssllabs.com/ssltest/analyze.html?d=",
+    qualymiddle = "' target='_blank'>",
+    qualyend = "</a>";
 
 var server = "http://www.lachlanblackhall.net/extension/query.php"; // Server where the php file is located
 chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) { //Part of the black magic that is the chrome extension API
@@ -11,20 +14,20 @@ chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) { //P
     $.post(server, {domain: domain}) // Initiates the post request sending the domain name
         .done(function (data) { // Success condition
             if (data === "A" || data === "B") {
-                $('#result-div').html("<img src='icons/Secure.png'></img>"); // Writes the grade to the website
+                $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Secure.png'></img>" + qualyend); // Writes the grade to the website
             } else if (data === "C" || data === "D") {
-                $('#result-div').html("<img src='icons/Mild.png'></img>"); // Writes the grade to the website
+                $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Mild.png'></img>" + qualyend); // Writes the grade to the website
             } else if (data === "E" || data === "F") {
-                $('#result-div').html("<img src='icons/Insecure.png'></img>"); // Writes the grade to the website
+                $('#result-div').html(qualystart + qualymiddle + "<img src='icons/Insecure.png'></img>" + qualyend); // Writes the grade to the website
             }
         })
         .fail(function (data) { // Fail condition
             if (data === "A" || data === "B") {
-                $('#result-div').html("<img src='icons/Secure.png'></img>"); // Writes the grade to the website
+                $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Secure.png'></img>" + qualyend); // Writes the grade to the website
             } else if (data === "C" || data === "D") {
-                $('#result-div').html("<img src='icons/Mild.png'></img>"); // Writes the grade to the website
+                $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Mild.png'></img>" + qualyend); // Writes the grade to the website
             } else if (data === "E" || data === "F") {
-                $('#result-div').html("<img src='icons/Insecure.png'></img>"); // Writes the grade to the website
+                $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Insecure.png'></img>" + qualyend); // Writes the grade to the website
             }
         });
 });
