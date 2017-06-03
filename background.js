@@ -13,6 +13,7 @@ chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) { //P
     // domain = "[DOMAIN HERE]" // This can be used to override the domain forcing it to check a specific website
     $.post(server, {domain: domain}) // Initiates the post request sending the domain name
         .done(function (data) { // Success condition
+            data = data.charAt(0);
             if (data === "A" || data === "B") {
                 $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Secure.png'></img>" + qualyend); // Writes the grade to the website
             } else if (data === "C" || data === "D") {
@@ -22,15 +23,7 @@ chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) { //P
             }
         })
         .fail(function (data) { // Fail condition
-            if (data === "A" || data === "B") {
-                $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Secure.png'></img>" + qualyend); // Writes the grade to the website
-            } else if (data === "C" || data === "D") {
-                $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Mild.png'></img>" + qualyend); // Writes the grade to the website
-            } else if (data === "E" || data === "F") {
-                $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Insecure.png'></img>" + qualyend); // Writes the grade to the website
-            }
+            $('result-div').html("I seem to have failed. Pleas wait 30 seconds and try me again")
+            console.log("Extension recieved this data: " + data);
         });
 });
-// Both success and fail are the same because this really shouldn't fail, if time allows I will add a proper fail condition however
-// Note that this sends the data to the server thus permission should be ensured to make certain that the server does not process requests against the TOS.
-// Will add this validation some point before final version
