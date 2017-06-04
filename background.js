@@ -14,9 +14,9 @@ chrome.tabs.query({'active': true, 'currentWindow': true}, function (tabs) { //P
     $.post(server, {domain: domain}) // Initiates the post request sending the domain name
         .done(function (data) { // Success condition
             data = data.charAt(0);
-            if (data === "A" || data === "B") {
+            if (data === "A") {
                 $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Secure.png'></img>" + qualyend); // Writes the grade to the website
-            } else if (data === "C" || data === "D") {
+            } else if (data === "C" || data === "D" || data === "B") {
                 $('#result-div').html(qualystart + domain + qualymiddle + "<img src='icons/Mild.png'></img>" + qualyend); // Writes the grade to the website
             } else if (data === "E" || data === "F") {
                 $('#result-div').html(qualystart + qualymiddle + "<img src='icons/Insecure.png'></img>" + qualyend); // Writes the grade to the website
